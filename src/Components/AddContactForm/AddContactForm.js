@@ -5,16 +5,15 @@ const AddContactForm = ({ formSubmit, inputValue, name, number }) => {
   return (
     <form onSubmit={formSubmit}>
       <p>Name</p>
-      <input type="text" onChange={inputValue} value={name} name="name" required></input>
-      <p>Number</p>
+      <input type="text" onChange={inputValue} value={name} name="name"></input>
+      <p>Number</p> 
       <input
         type="text"
         onChange={inputValue}
         value={number}
         name="number"
-        required
       />
-      <button>Add phone</button>
+      <button type="submit">Add phone</button>
     </form>
   );
   AddContactForm.propTypes = {

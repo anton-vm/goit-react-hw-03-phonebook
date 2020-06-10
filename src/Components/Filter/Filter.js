@@ -8,9 +8,7 @@ const Filter = ({ inputValue,  }) => {
       <input
         type="text"
         onInput={inputValue}
-        name="filter"
-
-      ></input>
+        name="filter"/>
     </>
   );
   Filter.propTypes ={

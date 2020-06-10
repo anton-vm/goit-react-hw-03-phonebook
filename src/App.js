@@ -18,17 +18,22 @@ class App extends Component {
     number: "",
   };
 
-  isContact = () => {
-    if (this.state.contacts.find((el) => el.name === this.state.name)) {
-      return true;
-    }
+  async componentDidUpdate (prevState) {
+    this.addToStorage(prevState)
+  }
+
+
+  inputValue = (e) => {    
+    const { name, value }  = e.target;
+    this.setState({ [name]: value });
   };
 
-  inputValue = (e) => {
-    const target = e.target.name;
-    const value = e.target.value;
-    this.setState({ [target]: value });
-  };
+  resetData = () => {
+    this.setState({
+      name: "",
+      number: "",
+    });
+  }
 
   formSubmit = (e) => {
     e.preventDefault();
@@ -37,25 +42,23 @@ class App extends Component {
       number: this.state.number,
       id: uuidv4(),
     };
+    const isExist = this.state.contacts.find((el) => el.name === this.state.name)
     if (this.state.name === "" || this.state.number === "" ) {
       alert("Fill the form");
       return;
     }
-    if (this.isContact() === true) {
+    if (isExist) {
       alert(`${this.state.name} is already in contact`);
-      this.setState({
-        name: "",
-        number: "",
-      });
+      this.resetData()
       return;
     } else {
       this.setState({ contacts: [...this.state.contacts, contact] });
     }
-    this.setState({
-      name: "",
-      number: "",
-    });
+    this.resetData()
+
   };
+
+
 
   deleteItem = (id) => {
     const deletedArr = this.state.contacts.filter((el) => el.id !== id);
@@ -88,9 +91,7 @@ class App extends Component {
   }
 
 
-  async componentDidUpdate (prevState) {
-    this.addToStorage(prevState)
-  }
+
 
 
 
